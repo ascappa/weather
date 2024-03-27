@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1 class="logo">
+        <a href=".">mete<i data-lucide="sun-dim"></i></a>
+      </h1>
+      <div class="search-wrapper">
+        <input
+          type="search"
+          id="citySearch"
+          name="q"
+          aria-label="Cerca una città..."
+          placeholder="Cerca una città"
+        />
+        <i data-lucide="search"></i>
+      </div>
+      <nav>
+        <ul>
+          <li><a>il team</a></li>
+          <li><a>contattaci</a></li>
+          <li><a>tech stack</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article class="city-wrapper">
+        <h2 class="city-name">Roma, Lazio</h2>
+        <p class="city-date">24/07/2024</p>
+        <p class="city-time">35:67:89</p>
+      </article>
+      <i class="city-weather" data-lucide="cloud"></i>
+    </main>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
