@@ -129,24 +129,31 @@ input[type="search"]::placeholder {
   grid-column: span 1;
   font-size: 2rem;
 }
-.city-name {
+#city-name {
   grid-column: span 2;
   justify-self: center;
   font-size: 3rem;
 }
-.city-date {
+#city-date {
   justify-self: start;
 }
-.city-time {
+#city-time {
   justify-self: end;
 }
 .city-wrapper * {
   margin: 0;
 }
-.city-weather {
-  width: 300px;
-  height: 300px;
+#city-weather {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#city-weather svg {
+  width: 250px;
+  height: unset;
+  aspect-ratio: 1;
 }
 .city-weather::after {
   content: "19°";
@@ -154,11 +161,14 @@ input[type="search"]::placeholder {
 }
 main {
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: repeat(auto-fit, minmax(300px, auto));
   padding: 1rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  justify-items: center;
+  gap: 5rem;
 }
+
 @keyframes rotateSun {
   from {
     rotate: 0;

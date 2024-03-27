@@ -24,23 +24,27 @@
       </div>
       <nav>
         <ul>
-          <li><a>il team</a></li>
-          <li><a>contattaci</a></li>
+          <li><a href="team.html">il team</a></li>
+          <li><a href="contact.html">contattaci</a></li>
           <li><a>tech stack</a></li>
         </ul>
       </nav>
     </header>
     <main>
       <article class="city-wrapper">
-        <h2 class="city-name">Roma, Lazio</h2>
-        <p class="city-date">24/07/2024</p>
-        <p class="city-time">35:67:89</p>
+        <h2 id="city-name">Roma, Lazio</h2>
+        <p id="city-date"></p>
+        <p id="city-time"></p>
       </article>
-      <i class="city-weather" data-lucide="cloud"></i>
+      <div id="city-weather">
+        <i data-lucide="cloud"></i>
+        <p></p>
+      </div>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
       lucide.createIcons();
     </script>
+    <script src="index.js"></script>
   </body>
 </html>
