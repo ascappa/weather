@@ -12,16 +12,21 @@
       <h1 class="logo">
         <a href=".">mete<i data-lucide="sun-dim"></i></a>
       </h1>
-      <div class="search-wrapper">
-        <input
-          type="search"
-          id="citySearch"
-          name="q"
-          aria-label="Cerca una città..."
-          placeholder="Cerca una città"
-        />
-        <i data-lucide="search"></i>
-      </div>
+      <form id="citySearchForm" style="display: contents;">
+        <div class="search-wrapper">
+          <input
+            type="search"
+            id="citySearch"
+            name="q"
+            aria-label="Cerca una città..."
+            placeholder="Cerca una città..."
+            list="city-list"
+            minlength="15"
+          />
+          <button type="submit"><i data-lucide="search"></i></button>
+          <datalist id="city-list"></datalist>
+        </div>
+      </form>
       <nav>
         <ul>
           <li><a href="team.html">il team</a></li>
@@ -38,7 +43,8 @@
       </article>
       <div id="city-weather">
         <i data-lucide="cloud"></i>
-        <p></p>
+        <p class="weather"></p>
+        <p class="temperature">19°</p>
       </div>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>

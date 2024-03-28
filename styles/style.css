@@ -105,11 +105,12 @@ nav ul {
 .search-wrapper {
   display: flex;
   align-items: center;
-  padding: 1rem;
+  padding: 0.6rem 1rem;
   border-radius: 2rem;
   background-color: var(--yellow-50);
   border: 2px solid var(--yellow-200);
   color: var(--yellow-700);
+  position: relative;
 }
 
 .search-wrapper :where(input, input:focus) {
@@ -118,6 +119,31 @@ nav ul {
   outline: 0;
   color: inherit;
 }
+
+
+.search-wrapper input ~ ul {
+  display: none;
+  list-style: none;
+  background-color: var(--yellow-50);
+  opacity: 0;
+  transition: all 0.3s;
+  width: 100%;
+  padding: 1rem;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  }
+
+.search-wrapper :is(input:focus ~ u, ul:hover) {
+display: flex;
+flex-direction: column;
+opacity: 1;
+
+}
+.search-wrapper button {
+  all:unset;
+  cursor: pointer;
+}
 input[type="search"]::placeholder {
   color: var(--yellow-700);
   font-style: oblique;
@@ -125,22 +151,28 @@ input[type="search"]::placeholder {
 .city-wrapper {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.7rem;
+  row-gap:3rem;
+  column-gap: 6rem;
   grid-column: span 1;
   font-size: 2rem;
+  font-family: monospace;
+  position: relative;
+  top: 1.5rem;
 }
 #city-name {
   grid-column: span 2;
   justify-self: center;
   font-size: 3rem;
+  font-family: "Montserrat";
 }
 #city-date {
   justify-self: start;
 }
 #city-time {
   justify-self: end;
+
 }
-.city-wrapper * {
+:is(.city-wrapper, #city-weather) * {
   margin: 0;
 }
 #city-weather {
@@ -148,16 +180,25 @@ input[type="search"]::placeholder {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  font-size: 1.5rem;
+  font-weight: 800;
+  gap: 0.5rem;
+}
+
+#city-list {
+  
 }
 #city-weather svg {
-  width: 250px;
+  width: 200px;
   height: unset;
   aspect-ratio: 1;
 }
-.city-weather::after {
-  content: "19°";
+#city-weather .temperature {
   position: absolute;
+  top: 5%;
+  right: 5%;
+  font-size: 2rem;
+  margin: 0;
 }
 main {
   display: grid;
