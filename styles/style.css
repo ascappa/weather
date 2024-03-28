@@ -185,18 +185,15 @@ input[type="search"]::placeholder {
   gap: 0.5rem;
 }
 
-#city-list {
-  
-}
-#city-weather svg {
+#city-weather img {
   width: 200px;
   height: unset;
   aspect-ratio: 1;
 }
 #city-weather .temperature {
   position: absolute;
-  top: 5%;
-  right: 5%;
+  top: 0;
+  right: 0;
   font-size: 2rem;
   margin: 0;
 }

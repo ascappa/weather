@@ -8,6 +8,7 @@ const cityWeatherNameEl = document.querySelector("#city-weather .weather");
 const citySearchFormEl = document.getElementById("citySearchForm");
 const cityTemperatureEl = document.querySelector("#city-weather .temperature");
 const cityListEl = document.getElementById("city-list");
+const cityWeatherIconEl = document.querySelector("#city-weather img")
 let timeId;
 timeId = setInterval(() => {
   const currentDate = new Date();
@@ -33,6 +34,8 @@ citySearchFormEl.addEventListener("submit", async (e) => {
   fetchWeather(lon, lat).then((data) => {
     cityWeatherNameEl.textContent = data.weather[0].main;
     cityTemperatureEl.textContent = Math.round(data.main.temp) + "°";
+    cityWeatherIconEl.src = "./assets/" + data.weather[0].main.toLowerCase() + ".svg"
+    cityWeatherIconEl.alt = data.weather[0].main.toLowerCase()
     cityNameEl.textContent = formData.get("q")
     locale = data.sys.country.toLowerCase() + "-" + data.sys.country;
     console.log(locale)
