@@ -86,6 +86,7 @@ async function fetchWeather(lon = 70, lat = 70) {
       "&lon=" +
       lon +
       "&limit=5&units=metric&appid=2e1c73811fbdb77294acb41f066d1786"
+      
   );
   const dataW = await resW.json();
   console.log(dataW);
