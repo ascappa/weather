@@ -1,5 +1,5 @@
 const cities = ["London, UK", "Rome, Italy", "Berlin, Germany", "Barcelona, Spain"];
-const weekDays = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"]
+const weekDays = ["Lunedì", "Martedì", "Mercoledì", "Giovedì", "Venerdì", "Sabato", "Domenica"];
 const WEATHER_KEY = "2e1c73811fbdb77294acb41f066d1786";
 const MAPBOX_TOKEN =
   "pk.eyJ1IjoiYXNjYXBwYSIsImEiOiJjbHVhY3hmZTAwZzU5MmttbWx0MnQycmlyIn0.AEkF1nFtCKq160tgyHls0Q";
@@ -13,6 +13,9 @@ const cityListEl = document.getElementById("city-list");
 const cityWeatherIconEl = document.querySelector("#city-weather img");
 const dayWeatherEl = document.querySelector("#day-weather ul");
 const weekWeatherEl = document.querySelector("#week-weather ul");
+const pressureEl = document.querySelector("#more-info .pressure")
+const humidityEl = document.querySelector("#more-info .humidity")
+const feelsLikeEl = document.querySelector("#more-info .feels_like")
 let timeId;
 timeId = setInterval(() => {
   const currentDate = new Date();
@@ -42,7 +45,11 @@ citySearchFormEl.addEventListener("submit", async (e) => {
       cityWeatherIconEl.alt = data.current.weather[0].main.toLowerCase();
       cityNameEl.textContent = formData.get("q");
       const hoursWeather = data.hourly.slice(0, 5);
-      const daysWeather = data.daily.slice(0,5)
+      const daysWeather = data.daily.slice(0, 5);
+      const {pressure, humidity, feels_like} = data.current
+      pressureEl.innerHTML = `${pressure} mbar`
+      humidityEl.innerHTML = `${humidity}%`
+      feelsLikeEl.innerHTML = `${Math.round(feels_like)}°`
       const currentHour = Number(
         currentDate
           .toLocaleTimeString("it-IT", {
@@ -50,9 +57,9 @@ citySearchFormEl.addEventListener("submit", async (e) => {
           })
           .split(":")[0]
       );
-      const currentDayIndex = currentDate.getDay()
+      const currentDayIndex = currentDate.getDay();
       dayWeatherEl.innerHTML = "";
-      weekWeatherEl.innerHTML = ""
+      weekWeatherEl.innerHTML = "";
       hoursWeather.forEach((hourData, idx) => {
         dayWeatherEl.innerHTML += `<li><img src="${
           "./assets/" + hourData.weather[0].main.toLowerCase() + ".svg"
@@ -61,13 +68,11 @@ citySearchFormEl.addEventListener("submit", async (e) => {
         }</p></li>`;
       });
       daysWeather.forEach((dayData, idx) => {
-        console.log(currentDayIndex)
-        const currentWeekDay = weekDays[(currentDayIndex + idx) % 7]
+        console.log(currentDayIndex);
+        const currentWeekDay = weekDays[(currentDayIndex + idx - 1) % 7];
         weekWeatherEl.innerHTML += `<li><p>${currentWeekDay.slice(0, 3)}</p><img src="${
           "./assets/" + dayData.weather[0].main.toLowerCase() + ".svg"
-        }"><p>${
-          Math.round(dayData.temp) + "°"
-        }</p></li>`;
+        }"><div class="minmaxtemp"><p class="min-temp">${Math.round(dayData.temp.min) + "°"}</p><p class="max-temp">${Math.round(dayData.temp.max) + "°"}</p></div></li>`;
       });
       clearInterval(timeId);
       timeId = setInterval(() => {
@@ -119,7 +124,59 @@ async function fetchWeather(lon = 70, lat = 70) {
   console.log(dataW);
   return dataW;
 }
-fetchWeather().then((data) => {
-  cityWeatherNameEl.textContent = data.current.weather[0].main;
-  cityTemperatureEl.textContent = Math.round(data.current.temp) + "°";
-});
+async function updateWeather() {
+  console.log("it's executing")
+  const res = await fetch(
+    `https://api.mapbox.com/geocoding/v5/mapbox.places/Rome.json?access_token=${MAPBOX_TOKEN}&limit=5&types=place`
+  );
+  const cities = await res.json();
+  const [lon, lat] = cities.features[0].center;
+  const myName = cities.features[0].place_name
+  fetchWeather(lon, lat).then((data) => {
+    const currentDate = new Date();
+    cityWeatherNameEl.textContent = data.current.weather[0].main;
+    cityTemperatureEl.textContent = Math.round(data.current.temp) + "°";
+    cityWeatherIconEl.src = "./assets/" + data.current.weather[0].main.toLowerCase() + ".svg";
+    cityWeatherIconEl.alt = data.current.weather[0].main.toLowerCase();
+    cityNameEl.textContent = myName;
+    const hoursWeather = data.hourly.slice(0, 5);
+    const daysWeather = data.daily.slice(0, 5);
+      const {pressure, humidity, feels_like} = data.current
+      pressureEl.innerHTML = `${pressure} mbar`
+      humidityEl.innerHTML = `${humidity}%`
+      feelsLikeEl.innerHTML = `${Math.round(feels_like)}°`
+      const currentHour = Number(
+        currentDate
+          .toLocaleTimeString("it-IT", {
+            timeZone: data.timezone,
+          })
+          .split(":")[0]
+      );
+      const currentDayIndex = currentDate.getDay();
+      dayWeatherEl.innerHTML = "";
+      weekWeatherEl.innerHTML = "";
+      hoursWeather.forEach((hourData, idx) => {
+        dayWeatherEl.innerHTML += `<li><img src="${
+          "./assets/" + hourData.weather[0].main.toLowerCase() + ".svg"
+        }"><p>${((currentHour + idx) % 24).toString().padStart(2, "0") + ":00"}</p><p>${
+          Math.round(hourData.temp) + "°"
+        }</p></li>`;
+      });
+      daysWeather.forEach((dayData, idx) => {
+        console.log(currentDayIndex);
+        const currentWeekDay = weekDays[(currentDayIndex + idx - 1) % 7];
+        weekWeatherEl.innerHTML += `<li><p>${currentWeekDay.slice(0, 3)}</p><img src="${
+          "./assets/" + dayData.weather[0].main.toLowerCase() + ".svg"
+        }"><div class="minmaxtemp"><p class="min-temp">${Math.round(dayData.temp.min) + "°"}</p><p class="max-temp">${Math.round(dayData.temp.max) + "°"}</p></div></li>`;
+      });
+      clearInterval(timeId);
+      timeId = setInterval(() => {
+        const currentDate = new Date();
+        cityTimeEl.textContent = currentDate.toLocaleTimeString("it-IT", {
+          timeZone: data.timezone,
+        });
+      }, 1000);
+    });
+    
+}
+updateWeather();

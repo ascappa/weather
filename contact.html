@@ -1,23 +1,100 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Modulo di Richiesta</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            background-color: #f2f2f2;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        input[type="text"], input[type="date"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        textarea {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            resize: vertical;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+    </style>
 </head>
 <body>
-    <form method="post" action="subscriberform.php">
+
+<div class="container">
+    <h2>Compila il modulo</h2>
+    <form id="myForm" action="submit.php" method="post" onsubmit="return validateForm()">
+        <label for="fname">Nome:</label>
+        <input type="text" id="fname" name="fname" required>
+
+        <label for="lname">Cognome:</label>
+        <input type="text" id="lname" name="lname" required>
+
+        <label for="dob">Data di Nascita:</label>
+        <input type="date" id="dob" name="dob" required>
+
+        <label for="reason">Motivo della Richiesta:</label>
+        <textarea id="reason" name="reason" rows="4" required></textarea>
+
+        <input type="submit" value="Invia">
+    </form>
+    <a href="index.html"> Torna indietro </a>
+</div>
+
+<script>
+    function validateForm() {
+        var fname = document.getElementById('fname').value;
+        var lname = document.getElementById('lname').value;
+        var dob = document.getElementById('dob').value;
+        var reason = document.getElementById('reason').value;
+
+        // Espressione regolare per verificare se il campo contiene almeno un numero
+        var containsNumber = /\d/.test(fname) || /\d/.test(lname);
+
+        if (containsNumber) {
+            alert('Il nome e il cognome non possono contenere numeri!');
+            return false;
+        }
+
+        return true;
+    }
+</script>
 
 
-        <textarea name="message"></textarea>
-        
-        
-        <input type="submit">
-        
-        
-        </form>
-        
-        
 </body>
 </html>
-

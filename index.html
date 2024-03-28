@@ -10,9 +10,9 @@
   <body>
     <header>
       <h1 class="logo">
-        <a href=".">mete<i data-lucide="sun-dim"></i></a>
+        <a href="."><span>mete</span><i data-lucide="sun-dim"></i></a>
       </h1>
-      <form id="citySearchForm" style="display: contents;">
+      <form id="citySearchForm" style="display: contents">
         <div class="search-wrapper">
           <input
             type="search"
@@ -37,17 +37,40 @@
     </header>
     <main>
       <article class="city-wrapper">
-        <h2 id="city-name">Roma, Lazio</h2>
+        <h2 id="city-name"></h2>
         <p id="city-date"></p>
         <p id="city-time"></p>
       </article>
       <div id="city-weather">
-        <img class="icon" src="./assets/clouds.svg" alt="Una nuvola">
+        <img class="icon" src="./assets/clouds.svg" alt="Una nuvola" />
         <p class="weather"></p>
-        <p class="temperature">19°</p>
+        <p class="temperature"></p>
       </div>
-      <article id="day-weather"><h2>Meteo del giorno</h2><ul></ul></article>
-      <article id="week-weather"><h2>Meteo della settimana</h2><ul></ul></article>
+      <article id="day-weather">
+        <h2>Meteo del giorno</h2>
+        <ul></ul>
+      </article>
+      <article id="week-weather">
+        <h2>Meteo della settimana</h2>
+        <ul></ul>
+      </article>
+      <section id="more-info">
+        <article>
+          <h2>Percepita</h2>
+          <img src="./assets/thermometer-sun.svg" alt="" />
+          <p class="feels_like"></p>
+        </article>
+        <article>
+          <h2>Umidità</h2>
+          <img src="./assets/droplets.svg" alt="" />
+          <p class="humidity"></p>
+        </article>
+        <article>
+          <h2>Pressione</h2>
+          <img src="./assets/circle-gauge.svg" alt="" />
+          <p class="pressure"></p>
+        </article>
+      </section>
     </main>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script>
