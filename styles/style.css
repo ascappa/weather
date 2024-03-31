@@ -32,8 +32,9 @@
   --gray-900: #181a1b;
 }
 @media (max-width: 800px) {
-nav {display: none;}
-
+  nav {
+    display: none;
+  }
 }
 @media (max-width: 650px) {
   h1 span {
@@ -65,10 +66,10 @@ main {
   gap: 5rem;
 }
 .minmaxtemp {
-display: flex;
-gap: 1.5rem;
-align-items: center;
-font-weight: 700;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  font-weight: 700;
 }
 .min-temp {
   color: #3b82f6;
@@ -80,7 +81,9 @@ font-weight: 700;
   font-size: 1.2rem;
   width: 20px;
 }
-h2 {margin: 0;}
+h2 {
+  margin: 0;
+}
 
 a {
   cursor: pointer;
@@ -251,7 +254,8 @@ input[type="search"]::placeholder {
   flex-direction: column;
   gap: 10px;
 }
-#day-weather, #week-weather {
+#day-weather,
+#week-weather {
   justify-self: stretch;
   gap: 3rem;
   display: flex;
@@ -265,7 +269,7 @@ input[type="search"]::placeholder {
   gap: 3rem;
 }
 #week-weather li {
-  display:flex;
+  display: flex;
   flex-direction: row;
   justify-content: start;
   gap: 3rem;
@@ -306,8 +310,8 @@ input[type="search"]::placeholder {
 }
 
 #more-info p {
-margin: 0;
-font-weight: 700;
+  margin: 0;
+  font-weight: 700;
 }
 
 @keyframes rotateSun {
